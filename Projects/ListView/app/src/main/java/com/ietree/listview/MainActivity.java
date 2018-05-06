@@ -58,24 +58,40 @@ public class MainActivity extends AppCompatActivity {
         // parent：当前的父控件
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            LinearLayout linearLayout = new LinearLayout(MainActivity.this);
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-
             Student student = students.get(position);
-            TextView tv = new TextView(MainActivity.this);
-            tv.setText(student.getName() + "，位置：" + position);
 
+            // 现在item已经定义好了，需要将硬盘上的item.xml布局文件转化为一个布局的对象返回回去
+            // 打气筒对象，去填充xml，使得xml布局文件变为一个view对象
+            View view = View.inflate(MainActivity.this, R.layout.item, null);
+            ImageView iv = view.findViewById(R.id.item_iv);
             String sex = student.getSex();
-            ImageView iv = new ImageView(MainActivity.this);
             if ("gentleman".equals(sex)) {
                 iv.setImageResource(R.drawable.nan);
             } else {
                 iv.setImageResource(R.drawable.nv);
             }
 
-            linearLayout.addView(tv);
-            linearLayout.addView(iv, 20, 20);
-            return linearLayout;
+            TextView tv = view.findViewById(R.id.item_tv);
+            tv.setText(student.getName());
+            return view;
+//            LinearLayout linearLayout = new LinearLayout(MainActivity.this);
+//            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+//
+//            Student student = students.get(position);
+//            TextView tv = new TextView(MainActivity.this);
+//            tv.setText(student.getName() + "，位置：" + position);
+//
+//            String sex = student.getSex();
+//            ImageView iv = new ImageView(MainActivity.this);
+//            if ("gentleman".equals(sex)) {
+//                iv.setImageResource(R.drawable.nan);
+//            } else {
+//                iv.setImageResource(R.drawable.nv);
+//            }
+//
+//            linearLayout.addView(tv);
+//            linearLayout.addView(iv, 20, 20);
+//            return linearLayout;
         }
 
         // 这个方法是最开始被调用的，用来计算到底有多少个item需要显示在ListView上
